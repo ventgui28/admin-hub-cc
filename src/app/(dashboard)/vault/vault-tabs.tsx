@@ -3,17 +3,17 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Download, FileIcon, ImageIcon, MoreVertical, Trash2 } from "lucide-react"
+import { Download, FileIcon, ImageIcon, MoreVertical, Trash2, Archive } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 
 interface FileObject {
   name: string
-  id: string
-  updated_at: string
-  created_at: string
-  last_accessed_at: string
+  id: string | null
+  updated_at: string | null
+  created_at: string | null
+  last_accessed_at: string | null
   metadata: any
 }
 
@@ -77,7 +77,7 @@ export function VaultTabs({ photos, logos }: VaultTabsProps) {
           const publicUrl = isImage ? getPublicUrl(bucket, file.name) : null
 
           return (
-            <Card key={file.id} className="overflow-hidden group border-none glass-card p-0 flex flex-col hover:-translate-y-3 transition-all duration-700 shadow-2xl hover:shadow-primary/20">
+            <Card key={file.id || file.name} className="overflow-hidden group border-none glass-card p-0 flex flex-col hover:-translate-y-3 transition-all duration-700 shadow-2xl hover:shadow-primary/20">
               <CardContent className="p-0 aspect-square bg-muted/30 flex items-center justify-center relative overflow-hidden">
                 {isImage && publicUrl ? (
                   <img 
@@ -110,7 +110,7 @@ export function VaultTabs({ photos, logos }: VaultTabsProps) {
                     {file.name}
                   </span>
                   <span className="text-[9px] text-primary/60 font-black uppercase tracking-[0.3em]">
-                    {new Date(file.created_at).toLocaleDateString('pt-PT')}
+                    {new Date(file.created_at || Date.now()).toLocaleDateString('pt-PT')}
                   </span>
                 </div>
                 <div className="flex gap-2">
@@ -154,6 +154,3 @@ export function VaultTabs({ photos, logos }: VaultTabsProps) {
     </Tabs>
   )
 }
-
-
-import { Archive } from "lucide-react"
