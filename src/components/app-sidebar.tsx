@@ -79,7 +79,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const isCollapsed = state === "collapsed"
 
   return (
-    <Sidebar collapsible="icon" {...props} className="border-r border-sidebar-border shadow-none relative">
+    <Sidebar collapsible="icon" {...props} className="border-r border-sidebar-border shadow-none">
       <SidebarHeader className={`bg-sidebar/80 backdrop-blur-xl transition-all duration-500 border-b border-sidebar-border relative overflow-hidden flex flex-col ${isCollapsed ? 'py-6 px-0 items-center justify-center' : 'py-8 px-6'}`}>
         {/* Subtle Glow Effect */}
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-50" />
