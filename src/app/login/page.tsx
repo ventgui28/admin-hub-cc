@@ -1,3 +1,6 @@
+"use client"
+
+import { useState } from 'react'
 import { login } from './actions'
 import { Button } from "@/components/ui/button"
 import {
@@ -9,13 +12,15 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Bike } from "lucide-react"
+import { Bike, Eye, EyeOff } from "lucide-react"
 
 export default function LoginPage({
   searchParams,
 }: {
   searchParams: { error?: string }
 }) {
+  const [showPassword, setShowPassword] = useState(false)
+
   return (
     <div className="flex min-h-screen items-center justify-center p-6 relative overflow-hidden bg-background">
       {/* Background Decor */}
@@ -69,11 +74,22 @@ export default function LoginPage({
                   <Input
                     id="password"
                     name="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
                     required
-                    className="h-14 md:h-16 bg-white/40 dark:bg-black/40 border-white/20 dark:border-white/10 focus-visible:ring-primary rounded-xl md:rounded-2xl text-sm md:text-base transition-all shadow-inner px-5 md:px-6 group-hover:bg-white/60 dark:group-hover:bg-black/60"
+                    className="h-14 md:h-16 bg-white/40 dark:bg-black/40 border-white/20 dark:border-white/10 focus-visible:ring-primary rounded-xl md:rounded-2xl text-sm md:text-base transition-all shadow-inner px-5 md:px-6 pr-14 md:pr-16 group-hover:bg-white/60 dark:group-hover:bg-black/60"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 md:right-5 top-1/2 -translate-y-1/2 p-2 rounded-xl hover:bg-primary/10 text-primary/40 hover:text-primary transition-all duration-300"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-5 w-5 md:h-6 md:w-6" />
+                    ) : (
+                      <Eye className="h-5 w-5 md:h-6 md:w-6" />
+                    )}
+                  </button>
                 </div>
               </div>
               
