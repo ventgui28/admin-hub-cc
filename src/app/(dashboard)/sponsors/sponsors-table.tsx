@@ -61,13 +61,13 @@ export function SponsorsTable({ sponsors }: { sponsors: Sponsor[] }) {
     <div className="space-y-10">
       <div className="glass-card p-0 overflow-hidden border-none shadow-2xl animate-reveal delay-100">
         <div className="overflow-x-auto pb-4">
-          <Table className="border-separate border-spacing-y-4">
+          <Table className="border-separate border-spacing-y-2">
             <TableHeader className="bg-transparent border-none">
               <TableRow className="hover:bg-transparent border-none">
-                <TableHead className="w-full md:w-[400px] font-black text-primary/70 uppercase tracking-[0.3em] text-[10px] md:text-[11px] px-6 md:px-10 py-2">Marca / Identidade</TableHead>
+                <TableHead className="w-full md:w-[400px] font-black text-primary/70 uppercase tracking-[0.3em] text-[10px] md:text-[11px] px-8 md:px-14 py-2">Marca / Identidade</TableHead>
                 <TableHead className="hidden md:table-cell font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10 py-2">Comunicação Oficial</TableHead>
                 <TableHead className="hidden sm:table-cell font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10 py-2">Canais Digitais</TableHead>
-                <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-6 md:px-10 py-2">Ações</TableHead>
+                <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-8 md:px-14 py-2">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -79,66 +79,66 @@ export function SponsorsTable({ sponsors }: { sponsors: Sponsor[] }) {
                 </TableRow>
               ) : (
                 sponsors.map((sponsor) => (
-                  <TableRow key={sponsor.id} className="group glass-card hover:bg-primary/[0.05] dark:hover:bg-white/[0.05] transition-all duration-500 border-none shadow-sm hover:shadow-xl hover:-translate-y-1">
-                    <TableCell className="px-6 md:px-10 py-8 md:py-10 first:rounded-l-[2rem]">
+                  <TableRow key={sponsor.id} className="group glass-card hover:bg-primary/[0.05] dark:hover:bg-white/[0.05] transition-all duration-500 border-none shadow-sm">
+                    <TableCell className="px-8 md:px-14 py-4 md:py-5 first:rounded-l-[2rem]">
                       <div className="flex items-center gap-4 md:gap-6">
-                        <div className="flex h-12 w-12 md:h-20 md:w-20 items-center justify-center rounded-xl md:rounded-3xl bg-white dark:bg-white/10 border border-primary/10 overflow-hidden shrink-0 shadow-lg md:shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-700 ring-1 ring-black/5">
+                        <div className="flex h-10 w-10 md:h-14 md:w-14 items-center justify-center rounded-xl bg-white dark:bg-white/10 border border-primary/10 overflow-hidden shrink-0 shadow-lg group-hover:scale-110 transition-all duration-500 ring-1 ring-black/5">
                           {sponsor.logo_url ? (
-                            <img src={sponsor.logo_url} alt={sponsor.nome} className="h-full w-full object-contain p-2 md:p-4 transition-transform duration-700 group-hover:scale-110" />
+                            <img src={sponsor.logo_url} alt={sponsor.nome} className="h-full w-full object-contain p-2 transition-transform duration-700 group-hover:scale-110" />
                           ) : (
-                            <Building2 className="h-6 w-6 md:h-10 md:w-10 text-primary/20" />
+                            <Building2 className="h-5 w-5 md:h-8 md:w-8 text-primary/20" />
                           )}
                         </div>
-                        <span className="font-black text-lg md:text-2xl text-foreground tracking-tighter leading-none italic uppercase text-gradient transition-colors duration-500 group-hover:text-primary">{sponsor.nome}</span>
+                        <span className="font-black text-base md:text-xl text-foreground tracking-tighter leading-none italic uppercase text-gradient transition-colors duration-500 group-hover:text-primary">{sponsor.nome}</span>
                       </div>
                     </TableCell>
-                    <TableCell className="hidden md:table-cell px-10 py-8 md:py-10">
+                    <TableCell className="hidden md:table-cell px-10 py-4 md:py-5">
                       {sponsor.hashtags_oficiais ? (
-                        <div className="flex flex-col gap-3">
+                        <div className="flex flex-col gap-2">
                           <Button
                             variant="outline"
                             size="sm"
-                            className="w-fit h-10 px-6 gap-3 border-primary/20 hover:border-primary hover:bg-primary hover:text-white font-black text-[10px] uppercase tracking-[0.2em] transition-all duration-500 rounded-xl shadow-lg shadow-primary/5"
+                            className="w-fit h-8 px-4 gap-2 border-primary/10 hover:border-primary hover:bg-primary hover:text-white font-black text-[9px] uppercase tracking-[0.2em] transition-all duration-500 rounded-lg"
                             onClick={() => copyToClipboard(sponsor.hashtags_oficiais!, "Hashtags")}
                           >
-                            <Copy className="h-4 w-4" />
-                            Copiar Hashtags
+                            <Copy className="h-3 w-3" />
+                            Copiar
                           </Button>
-                          <span className="text-[10px] text-primary/70 font-black uppercase tracking-[0.2em] truncate max-w-[280px] bg-primary/10 px-4 py-2 rounded-xl border border-primary/10 italic">
+                          <span className="text-[9px] text-primary/70 font-black uppercase tracking-[0.2em] truncate max-w-[240px] italic">
                             {sponsor.hashtags_oficiais}
                           </span>
                         </div>
                       ) : (
-                        <span className="text-[10px] text-muted-foreground/30 font-black uppercase tracking-[0.3em] italic">Sem hashtags oficiais</span>
+                        <span className="text-[9px] text-muted-foreground/30 font-black uppercase tracking-[0.3em] italic">Sem hashtags</span>
                       )}
                     </TableCell>
-                    <TableCell className="hidden sm:table-cell px-10 py-8 md:py-10">
-                      <div className="flex items-center gap-4">
+                    <TableCell className="hidden sm:table-cell px-10 py-4 md:py-5">
+                      <div className="flex items-center gap-2">
                         {sponsor.instagram && (
                           <Button
                             variant="secondary"
                             size="sm"
-                            className="h-11 px-6 gap-3 font-black text-[10px] uppercase tracking-[0.2em] rounded-xl bg-primary/10 text-primary hover:bg-primary/20 transition-all duration-500 shadow-inner"
+                            className="h-9 px-4 gap-2 font-black text-[9px] uppercase tracking-[0.2em] rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-all duration-500"
                             onClick={() => copyToClipboard(sponsor.instagram!, "Instagram")}
                           >
-                            <Camera className="h-4 w-4" />
+                            <Camera className="h-3 w-3" />
                             Instagram
                           </Button>
                         )}
                         {sponsor.website && (
                           <a href={sponsor.website} target="_blank" rel="noopener noreferrer">
-                            <Button variant="ghost" size="icon" className="h-11 w-11 rounded-xl border border-primary/10 hover:text-primary hover:bg-primary/10 transition-all duration-500 shadow-inner group/web">
-                              <Globe className="h-6 w-6 group-hover/web:scale-110 transition-transform" />
+                            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-lg border border-primary/10 hover:text-primary hover:bg-primary/10 transition-all duration-500 shadow-inner group/web">
+                              <Globe className="h-5 w-5 group-hover/web:scale-110 transition-transform" />
                             </Button>
                           </a>
                         )}
                       </div>
                     </TableCell>
-                    <TableCell className="text-right px-6 md:px-10 py-8 md:py-10 last:rounded-r-[2rem]">
+                    <TableCell className="text-right px-8 md:px-14 py-4 md:py-5 last:rounded-r-[2rem]">
                       <DropdownMenu>
                         <DropdownMenuTrigger render={
-                          <Button variant="ghost" size="icon" className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl hover:bg-primary/10 hover:text-primary transition-all duration-500 group/btn">
-                            <MoreHorizontal className="h-6 w-6 md:h-7 md:w-7 group-hover/btn:scale-110" />
+                          <Button variant="ghost" size="icon" className="h-9 w-9 md:h-10 md:w-10 rounded-xl hover:bg-primary/10 hover:text-primary transition-all duration-500">
+                            <MoreHorizontal className="h-5 w-5 md:h-6 md:w-6" />
                           </Button>
                         } />
                         <DropdownMenuContent align="end" className="w-64 p-3 hyper-glass border-primary/10 rounded-2xl animate-reveal">

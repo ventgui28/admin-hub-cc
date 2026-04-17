@@ -123,13 +123,13 @@ export function RacesTable({ races }: { races: Race[] }) {
 
       <div className="glass-card p-0 overflow-hidden border-none shadow-2xl animate-reveal delay-200">
         <div className="overflow-x-auto pb-4">
-          <Table className="border-separate border-spacing-y-4">
+          <Table className="border-separate border-spacing-y-2">
             <TableHeader className="bg-transparent border-none">
               <TableRow className="hover:bg-transparent border-none">
-                <TableHead className="w-full md:w-[400px] font-black text-primary/70 uppercase tracking-[0.3em] text-[10px] md:text-[11px] px-6 md:px-10 py-2">Prova / Cronologia</TableHead>
+                <TableHead className="w-full md:w-[400px] font-black text-primary/70 uppercase tracking-[0.3em] text-[10px] md:text-[11px] px-8 md:px-14 py-2">Prova / Cronologia</TableHead>
                 <TableHead className="hidden md:table-cell font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10 py-2">Localização</TableHead>
                 <TableHead className="hidden sm:table-cell text-center font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10 py-2">Status</TableHead>
-                <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-6 md:px-10 py-2">Ações</TableHead>
+                <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-8 md:px-14 py-2">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -141,36 +141,35 @@ export function RacesTable({ races }: { races: Race[] }) {
                 </TableRow>
               ) : (
                 filteredRaces.map((race) => (
-                  <TableRow key={race.id} className="group glass-card hover:bg-primary/[0.05] dark:hover:bg-white/[0.05] transition-all duration-500 border-none shadow-sm hover:shadow-xl hover:-translate-y-1">
-                    <TableCell className="px-6 md:px-10 py-8 md:py-10 first:rounded-l-[2rem]">
+                  <TableRow key={race.id} className="group glass-card hover:bg-primary/[0.05] dark:hover:bg-white/[0.05] transition-all duration-500 border-none shadow-sm">
+                    <TableCell className="px-8 md:px-14 py-4 md:py-5 first:rounded-l-[2rem]">
                       <div className="flex items-center gap-4 md:gap-6">
-                        <div className="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-xl md:rounded-2xl bg-white dark:bg-black/40 text-primary border border-primary/20 shrink-0 shadow-lg md:shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 ring-1 ring-black/5">
-                          <Calendar className="h-6 w-6 md:h-8 md:w-8" />
+                        <div className="flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl md:rounded-2xl bg-white dark:bg-black/40 text-primary border border-primary/20 shrink-0 shadow-lg group-hover:scale-110 transition-all duration-500 ring-1 ring-black/5">
+                          <Calendar className="h-5 w-5 md:h-6 md:w-6" />
                         </div>
-                        <div className="flex flex-col gap-1 md:gap-1.5">
-                          <span className="font-black text-lg md:text-2xl text-foreground leading-none tracking-tighter group-hover:text-primary transition-colors duration-500 italic uppercase">
+                        <div className="flex flex-col gap-0.5 md:gap-1">
+                          <span className="font-black text-base md:text-xl text-foreground leading-none tracking-tighter group-hover:text-primary transition-colors duration-500 italic uppercase">
                             {race.nome}
                           </span>
-                          <span className="text-[9px] md:text-[10px] text-primary/60 font-black uppercase tracking-[0.2em] md:tracking-[0.25em] flex items-center gap-2">
-                            <span className="h-1 w-1 md:h-1.5 md:w-1.5 rounded-full bg-primary/40 animate-pulse" />
+                          <span className="text-[8px] md:text-[9px] text-primary/60 font-black uppercase tracking-[0.2em] flex items-center gap-2">
                             {new Date(race.data).toLocaleDateString('pt-PT', { day: '2-digit', month: 'long', year: 'numeric' })}
                           </span>
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="hidden md:table-cell px-10 py-8 md:py-10">
-                      <div className="flex items-center gap-3 text-foreground/70 font-black uppercase tracking-widest text-xs italic">
-                        <MapPin className="h-5 w-5 text-primary/40" />
+                    <TableCell className="hidden md:table-cell px-10 py-4 md:py-5">
+                      <div className="flex items-center gap-2 text-foreground/70 font-black uppercase tracking-widest text-[10px] italic">
+                        <MapPin className="h-4 w-4 text-primary/40" />
                         {race.local || "Não definido"}
                       </div>
                     </TableCell>
-                    <TableCell className="hidden sm:table-cell text-center px-10 py-8 md:py-10">
+                    <TableCell className="hidden sm:table-cell text-center px-10 py-4 md:py-5">
                       <div className="flex justify-center">
                         <Badge 
                           variant={isFuture(race.data) ? "default" : "outline"} 
-                          className={`px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.3em] rounded-full shadow-2xl transition-all duration-700 ${
+                          className={`px-4 py-1 text-[8px] font-black uppercase tracking-[0.3em] rounded-full transition-all duration-700 ${
                             isFuture(race.data) 
-                              ? "bg-primary hover:bg-primary/90 shadow-primary/30 ring-4 ring-primary/10" 
+                              ? "bg-primary hover:bg-primary/90" 
                               : "text-muted-foreground border-muted-foreground/20 bg-muted/50"
                           }`}
                         >
@@ -178,19 +177,19 @@ export function RacesTable({ races }: { races: Race[] }) {
                         </Badge>
                       </div>
                     </TableCell>
-                    <TableCell className="text-right px-6 md:px-10 py-8 md:py-10 last:rounded-r-[2rem]">
+                    <TableCell className="text-right px-8 md:px-14 py-4 md:py-5 last:rounded-r-[2rem]">
                       <div className="flex justify-end gap-2 md:gap-3">
                         {race.url_oficial && (
                           <a href={race.url_oficial} target="_blank" rel="noopener noreferrer" className="hidden xs:block">
-                            <Button variant="ghost" size="icon" className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl border border-primary/10 hover:text-primary hover:bg-primary/10 transition-all duration-500 shadow-inner group/web">
-                              <ExternalLink className="h-5 w-5 md:h-6 md:w-6 group-hover/web:scale-110" />
+                            <Button variant="ghost" size="icon" className="h-9 w-9 md:h-10 md:w-10 rounded-xl border border-primary/10 hover:text-primary hover:bg-primary/10 transition-all duration-500">
+                              <ExternalLink className="h-4 w-4 md:h-5 md:w-5" />
                             </Button>
                           </a>
                         )}
                         <DropdownMenu>
                           <DropdownMenuTrigger render={
-                            <Button variant="ghost" size="icon" className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl hover:bg-primary/10 hover:text-primary transition-all duration-500 group/btn">
-                              <MoreHorizontal className="h-6 w-6 md:h-7 md:w-7 group-hover/btn:scale-110" />
+                            <Button variant="ghost" size="icon" className="h-9 w-9 md:h-10 md:w-10 rounded-xl hover:bg-primary/10 hover:text-primary transition-all duration-500">
+                              <MoreHorizontal className="h-5 w-5 md:h-6 md:w-6" />
                             </Button>
                           } />
                           <DropdownMenuContent align="end" className="w-64 p-3 hyper-glass border-primary/10 rounded-2xl animate-reveal">
