@@ -75,20 +75,38 @@ export function VaultTabs({ photos, logos }: VaultTabsProps) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 animate-reveal delay-200">
         {filteredFiles.map((file, index) => {
-          const isImage = file.name.match(/\.(jpg|jpeg|png|gif|webp|svg)$/i)
+          // Deteção ultra-robusta
+          const isImage = bucket === 'photos' || 
+                          file.name.match(/\.(jpg|jpeg|png|gif|webp|svg|avif|heic)$/i) || 
+                          (file.metadata?.mimetype && file.metadata.mimetype.startsWith('image/'))
+          
           const publicUrl = isImage ? getPublicUrl(bucket, file.name) : null
 
           return (
             <Card key={file.id || file.name} className="overflow-hidden group border-none glass-card p-0 flex flex-col hover:-translate-y-3 transition-all duration-700 shadow-2xl hover:shadow-primary/20">
               <CardContent className="p-0 aspect-square bg-muted/30 flex items-center justify-center relative overflow-hidden">
                 {isImage && publicUrl ? (
-                  <img 
-                    src={publicUrl} 
-                    alt={file.name}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-125"
-                    loading="lazy"
-                    crossOrigin="anonymous"
-                  />
+                  <div className="w-full h-full relative">
+                    <img 
+                      src={publicUrl} 
+                      alt={file.name}
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-125"
+                      loading="lazy"
+                      crossOrigin="anonymous"
+                      onError={(e) => {
+                        // Se falhar, substitui por um ícone de erro
+                        const target = e.target as HTMLImageElement
+                        target.style.display = 'none'
+                        const parent = target.parentElement
+                        if (parent) {
+                          const errorPlaceholder = document.createElement('div')
+                          errorPlaceholder.className = "flex flex-col items-center gap-2 p-4 text-center opacity-40"
+                          errorPlaceholder.innerHTML = '<svg class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7M16 5l5 5M21 5l-5 5"/></svg><span class="text-[9px] font-bold uppercase">Erro ao carregar</span>'
+                          parent.appendChild(errorPlaceholder)
+                        }
+                      }}
+                    />
+                  </div>
                 ) : (
                   <div className="flex flex-col items-center gap-4 p-8 text-center">
                     <div className="h-20 w-20 rounded-3xl bg-white/50 dark:bg-black/40 flex items-center justify-center shadow-inner ring-1 ring-black/5">
