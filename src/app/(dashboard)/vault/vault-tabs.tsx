@@ -202,14 +202,14 @@ export function VaultTabs({ photos, logos }: VaultTabsProps) {
 
   return (
     <Tabs defaultValue="photos" className="w-full">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-12 animate-reveal delay-100">
-        <TabsList className="grid w-full grid-cols-2 max-w-[500px] h-16 p-2 hyper-glass rounded-2xl ring-0">
-          <TabsTrigger value="photos" className="rounded-xl font-black uppercase italic tracking-widest text-[11px] data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-xl shadow-primary/20 transition-all duration-500">
-            <ImageIcon className="h-4 w-4 mr-2" />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-8 mb-16 animate-reveal delay-100">
+        <TabsList className="grid w-full grid-cols-2 max-w-[550px] h-20 p-2.5 hyper-glass rounded-[2rem] ring-0 gap-2">
+          <TabsTrigger value="photos" className="rounded-[1.4rem] px-8 font-black uppercase italic tracking-widest text-[11px] data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-2xl shadow-primary/30 transition-all duration-500">
+            <ImageIcon className="h-4.5 w-4.5 mr-3" />
             Fotos da Equipa
           </TabsTrigger>
-          <TabsTrigger value="logos" className="rounded-xl font-black uppercase italic tracking-widest text-[11px] data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-xl shadow-primary/20 transition-all duration-500">
-            <FileIcon className="h-4 w-4 mr-2" />
+          <TabsTrigger value="logos" className="rounded-[1.4rem] px-8 font-black uppercase italic tracking-widest text-[11px] data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-2xl shadow-primary/30 transition-all duration-500">
+            <FileIcon className="h-4.5 w-4.5 mr-3" />
             Logótipos Oficiais
           </TabsTrigger>
         </TabsList>
