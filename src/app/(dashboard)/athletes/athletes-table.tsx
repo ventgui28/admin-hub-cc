@@ -23,6 +23,7 @@ import {
   X
 } from "lucide-react"
 import { toast } from "sonner"
+import { deleteAthlete } from "./actions"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,6 +39,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { EditAthleteDialog } from "./edit-athlete-dialog"
 
 interface Athlete {
   id: string
@@ -51,6 +53,8 @@ interface Athlete {
 export function AthletesTable({ athletes }: { athletes: Athlete[] }) {
   const [search, setSearch] = useState("")
   const [categoryFilter, setCategoryFilter] = useState("all")
+  const [editingAthlete, setEditingAthlete] = useState<Athlete | null>(null)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
 
   // Obter categorias únicas para o filtro
   const categories = useMemo(() => {
@@ -65,6 +69,17 @@ export function AthletesTable({ athletes }: { athletes: Athlete[] }) {
       return matchesSearch && matchesCategory
     })
   }, [athletes, search, categoryFilter])
+
+  const handleEdit = (athlete: Athlete) => {
+    setEditingAthlete(athlete)
+    setIsEditDialogOpen(true)
+  }
+
+  const handleDelete = async (id: string) => {
+    const result = await deleteAthlete(id)
+    if (result.error) toast.error(result.error)
+    else toast.success("Atleta removido")
+  }
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text)
@@ -139,10 +154,10 @@ export function AthletesTable({ athletes }: { athletes: Athlete[] }) {
           <Table>
             <TableHeader className="bg-primary/[0.03] dark:bg-white/[0.02] border-b border-white/10">
               <TableRow className="hover:bg-transparent border-none">
-                <TableHead className="w-[400px] font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10 py-8">Atleta / Categoria</TableHead>
-                <TableHead className="font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Presença Digital</TableHead>
-                <TableHead className="text-center font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Estado Atual</TableHead>
-                <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Ações</TableHead>
+                <TableHead className="w-full md:w-[400px] font-black text-primary/70 uppercase tracking-[0.3em] text-[10px] md:text-[11px] px-6 md:px-10 py-6 md:py-8">Atleta / Categoria</TableHead>
+                <TableHead className="hidden md:table-cell font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Presença Digital</TableHead>
+                <TableHead className="hidden sm:table-cell text-center font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Estado Atual</TableHead>
+                <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-6 md:px-10">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -160,23 +175,23 @@ export function AthletesTable({ athletes }: { athletes: Athlete[] }) {
                     key={athlete.id} 
                     className="group hover:bg-primary/[0.03] dark:hover:bg-white/[0.02] transition-all duration-500 border-white/10 dark:border-white/5"
                   >
-                    <TableCell className="px-10 py-8">
-                      <div className="flex items-center gap-6">
-                        <div className="flex h-16 w-16 items-center justify-center rounded-[1.5rem] bg-white dark:bg-black/40 text-primary border border-primary/20 shrink-0 shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 ring-1 ring-black/5">
-                          <User className="h-8 w-8" />
+                    <TableCell className="px-6 md:px-10 py-6 md:py-8">
+                      <div className="flex items-center gap-4 md:gap-6">
+                        <div className="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-xl md:rounded-[1.5rem] bg-white dark:bg-black/40 text-primary border border-primary/20 shrink-0 shadow-lg md:shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 ring-1 ring-black/5">
+                          <User className="h-6 w-6 md:h-8 md:w-8" />
                         </div>
-                        <div className="flex flex-col gap-1.5">
-                          <span className="font-black text-2xl text-foreground leading-none tracking-tighter group-hover:text-primary transition-colors duration-500 italic uppercase">
+                        <div className="flex flex-col gap-1 md:gap-1.5">
+                          <span className="font-black text-lg md:text-2xl text-foreground leading-none tracking-tighter group-hover:text-primary transition-colors duration-500 italic uppercase">
                             {athlete.nome}
                           </span>
-                          <span className="text-[10px] text-primary/60 font-black uppercase tracking-[0.25em] flex items-center gap-2">
-                            <span className="h-1.5 w-1.5 rounded-full bg-primary/40 animate-pulse" />
+                          <span className="text-[9px] md:text-[10px] text-primary/60 font-black uppercase tracking-[0.2em] md:tracking-[0.25em] flex items-center gap-2">
+                            <span className="h-1 w-1 md:h-1.5 md:w-1.5 rounded-full bg-primary/40 animate-pulse" />
                             {athlete.categoria || "Sem Categoria"}
                           </span>
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="px-10">
+                    <TableCell className="hidden md:table-cell px-10">
                       <div className="flex gap-3">
                         {athlete.instagram && (
                           <Button
@@ -205,7 +220,7 @@ export function AthletesTable({ athletes }: { athletes: Athlete[] }) {
                         )}
                       </div>
                     </TableCell>
-                    <TableCell className="text-center px-10">
+                    <TableCell className="hidden sm:table-cell text-center px-10">
                       <div className="flex justify-center">
                         <Badge 
                           variant={athlete.ativo ? "default" : "outline"} 
@@ -219,20 +234,20 @@ export function AthletesTable({ athletes }: { athletes: Athlete[] }) {
                         </Badge>
                       </div>
                     </TableCell>
-                    <TableCell className="text-right px-10">
+                    <TableCell className="text-right px-6 md:px-10">
                       <DropdownMenu>
                         <DropdownMenuTrigger render={
-                          <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl hover:bg-primary/10 hover:text-primary transition-all duration-500 group/btn">
-                            <MoreHorizontal className="h-7 w-7 group-hover/btn:scale-110" />
+                          <Button variant="ghost" size="icon" className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl hover:bg-primary/10 hover:text-primary transition-all duration-500 group/btn">
+                            <MoreHorizontal className="h-6 w-6 md:h-7 md:w-7 group-hover/btn:scale-110" />
                           </Button>
                         } />
                         <DropdownMenuContent align="end" className="w-64 p-3 hyper-glass border-primary/10 rounded-2xl animate-reveal">
                           <DropdownMenuLabel className="text-[10px] uppercase text-primary/60 font-black tracking-[0.3em] px-4 py-4">Opções de Gestão</DropdownMenuLabel>
                           <DropdownMenuSeparator className="bg-primary/10 mx-2 mb-2" />
-                          <DropdownMenuItem className="cursor-pointer font-black text-xs uppercase tracking-[0.2em] rounded-xl py-4 px-5 focus:bg-primary/10 focus:text-primary transition-all duration-300">
+                          <DropdownMenuItem className="cursor-pointer font-black text-xs uppercase tracking-[0.2em] rounded-xl py-4 px-5 focus:bg-primary/10 focus:text-primary transition-all duration-300" onClick={() => handleEdit(athlete)}>
                             Editar Perfil
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10 font-black text-xs uppercase tracking-[0.2em] rounded-xl py-4 px-5 transition-all duration-300">
+                          <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10 font-black text-xs uppercase tracking-[0.2em] rounded-xl py-4 px-5 transition-all duration-300" onClick={() => handleDelete(athlete.id)}>
                             Eliminar Registo
                           </DropdownMenuItem>
                         </DropdownMenuContent>
@@ -245,6 +260,14 @@ export function AthletesTable({ athletes }: { athletes: Athlete[] }) {
           </Table>
         </div>
       </div>
+
+      {editingAthlete && (
+        <EditAthleteDialog 
+          athlete={editingAthlete} 
+          open={isEditDialogOpen} 
+          onOpenChange={setIsEditDialogOpen} 
+        />
+      )}
     </div>
   )
 }

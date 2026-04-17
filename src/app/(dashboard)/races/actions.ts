@@ -31,6 +31,35 @@ export async function addRace(formData: FormData) {
   return { success: true }
 }
 
+export async function updateRace(id: string, formData: FormData) {
+  const nome = formData.get('nome') as string
+  const data = formData.get('data') as string
+  const local = formData.get('local') as string
+  const tipo = formData.get('tipo') as string
+  const url_oficial = formData.get('url_oficial') as string
+
+  const supabase = await createClient()
+
+  const { error } = await supabase
+    .from('races')
+    .update({
+      nome,
+      data,
+      local,
+      tipo,
+      url_oficial,
+    })
+    .eq('id', id)
+
+  if (error) {
+    console.error('Erro ao atualizar prova:', error)
+    return { error: 'Falha ao atualizar a prova.' }
+  }
+
+  revalidatePath('/races')
+  return { success: true }
+}
+
 export async function deleteRace(id: string) {
   const supabase = await createClient()
 

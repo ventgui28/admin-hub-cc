@@ -39,6 +39,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { EditRaceDialog } from "./edit-race-dialog"
 
 interface Race {
   id: string
@@ -52,6 +53,8 @@ interface Race {
 export function RacesTable({ races }: { races: Race[] }) {
   const [search, setSearch] = useState("")
   const [typeFilter, setTypeFilter] = useState("all")
+  const [editingRace, setEditingRace] = useState<Race | null>(null)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
 
   const filteredRaces = useMemo(() => {
     return races.filter(race => {
@@ -66,6 +69,11 @@ export function RacesTable({ races }: { races: Race[] }) {
     const result = await deleteRace(id)
     if (result.error) toast.error(result.error)
     else toast.success("Prova removida")
+  }
+
+  const handleEdit = (race: Race) => {
+    setEditingRace(race)
+    setIsEditDialogOpen(true)
   }
 
   const isFuture = (dateStr: string) => {
@@ -117,10 +125,10 @@ export function RacesTable({ races }: { races: Race[] }) {
           <Table>
             <TableHeader className="bg-primary/[0.03] dark:bg-white/[0.02] border-b border-white/10">
               <TableRow className="hover:bg-transparent border-none">
-                <TableHead className="w-[400px] font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10 py-8">Prova / Cronologia</TableHead>
-                <TableHead className="font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Localização</TableHead>
-                <TableHead className="text-center font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Status</TableHead>
-                <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Ações</TableHead>
+                <TableHead className="w-full md:w-[400px] font-black text-primary/70 uppercase tracking-[0.3em] text-[10px] md:text-[11px] px-6 md:px-10 py-6 md:py-8">Prova / Cronologia</TableHead>
+                <TableHead className="hidden md:table-cell font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Localização</TableHead>
+                <TableHead className="hidden sm:table-cell text-center font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Status</TableHead>
+                <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-6 md:px-10">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -133,29 +141,29 @@ export function RacesTable({ races }: { races: Race[] }) {
               ) : (
                 filteredRaces.map((race) => (
                   <TableRow key={race.id} className="group hover:bg-primary/[0.03] dark:hover:bg-white/[0.02] transition-all duration-500 border-white/10 dark:border-white/5">
-                    <TableCell className="px-10 py-8">
-                      <div className="flex items-center gap-6">
-                        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white dark:bg-black/40 text-primary border border-primary/20 shrink-0 shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 ring-1 ring-black/5">
-                          <Calendar className="h-8 w-8" />
+                    <TableCell className="px-6 md:px-10 py-6 md:py-8">
+                      <div className="flex items-center gap-4 md:gap-6">
+                        <div className="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-xl md:rounded-2xl bg-white dark:bg-black/40 text-primary border border-primary/20 shrink-0 shadow-lg md:shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 ring-1 ring-black/5">
+                          <Calendar className="h-6 w-6 md:h-8 md:w-8" />
                         </div>
-                        <div className="flex flex-col gap-1.5">
-                          <span className="font-black text-2xl text-foreground leading-none tracking-tighter group-hover:text-primary transition-colors duration-500 italic uppercase">
+                        <div className="flex flex-col gap-1 md:gap-1.5">
+                          <span className="font-black text-lg md:text-2xl text-foreground leading-none tracking-tighter group-hover:text-primary transition-colors duration-500 italic uppercase">
                             {race.nome}
                           </span>
-                          <span className="text-[10px] text-primary/60 font-black uppercase tracking-[0.25em] flex items-center gap-2">
-                            <span className="h-1.5 w-1.5 rounded-full bg-primary/40 animate-pulse" />
+                          <span className="text-[9px] md:text-[10px] text-primary/60 font-black uppercase tracking-[0.2em] md:tracking-[0.25em] flex items-center gap-2">
+                            <span className="h-1 w-1 md:h-1.5 md:w-1.5 rounded-full bg-primary/40 animate-pulse" />
                             {new Date(race.data).toLocaleDateString('pt-PT', { day: '2-digit', month: 'long', year: 'numeric' })}
                           </span>
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="px-10">
+                    <TableCell className="hidden md:table-cell px-10">
                       <div className="flex items-center gap-3 text-foreground/70 font-black uppercase tracking-widest text-xs italic">
                         <MapPin className="h-5 w-5 text-primary/40" />
                         {race.local || "Não definido"}
                       </div>
                     </TableCell>
-                    <TableCell className="text-center px-10">
+                    <TableCell className="hidden sm:table-cell text-center px-10">
                       <div className="flex justify-center">
                         <Badge 
                           variant={isFuture(race.data) ? "default" : "outline"} 
@@ -169,24 +177,27 @@ export function RacesTable({ races }: { races: Race[] }) {
                         </Badge>
                       </div>
                     </TableCell>
-                    <TableCell className="text-right px-10">
-                      <div className="flex justify-end gap-3">
+                    <TableCell className="text-right px-6 md:px-10">
+                      <div className="flex justify-end gap-2 md:gap-3">
                         {race.url_oficial && (
-                          <a href={race.url_oficial} target="_blank" rel="noopener noreferrer">
-                            <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl border border-primary/10 hover:text-primary hover:bg-primary/10 transition-all duration-500 shadow-inner group/web">
-                              <ExternalLink className="h-6 w-6 group-hover/web:scale-110" />
+                          <a href={race.url_oficial} target="_blank" rel="noopener noreferrer" className="hidden xs:block">
+                            <Button variant="ghost" size="icon" className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl border border-primary/10 hover:text-primary hover:bg-primary/10 transition-all duration-500 shadow-inner group/web">
+                              <ExternalLink className="h-5 w-5 md:h-6 md:w-6 group-hover/web:scale-110" />
                             </Button>
                           </a>
                         )}
                         <DropdownMenu>
                           <DropdownMenuTrigger render={
-                            <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl hover:bg-primary/10 hover:text-primary transition-all duration-500 group/btn">
-                              <MoreHorizontal className="h-7 w-7 group-hover/btn:scale-110" />
+                            <Button variant="ghost" size="icon" className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl hover:bg-primary/10 hover:text-primary transition-all duration-500 group/btn">
+                              <MoreHorizontal className="h-6 w-6 md:h-7 md:w-7 group-hover/btn:scale-110" />
                             </Button>
                           } />
                           <DropdownMenuContent align="end" className="w-64 p-3 hyper-glass border-primary/10 rounded-2xl animate-reveal">
                             <DropdownMenuLabel className="text-[10px] uppercase text-primary/60 font-black tracking-[0.3em] px-4 py-4">Gestão de Prova</DropdownMenuLabel>
                             <DropdownMenuSeparator className="bg-primary/10 mx-2 mb-2" />
+                            <DropdownMenuItem className="cursor-pointer font-black text-xs uppercase tracking-[0.2em] rounded-xl py-4 px-5 focus:bg-primary/10 focus:text-primary transition-all duration-300" onClick={() => handleEdit(race)}>
+                              Editar Detalhes
+                            </DropdownMenuItem>
                             <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10 font-black text-xs uppercase tracking-[0.2em] rounded-xl py-4 px-5 transition-all duration-300" onClick={() => handleDelete(race.id)}>
                               Eliminar Evento
                             </DropdownMenuItem>
@@ -201,6 +212,14 @@ export function RacesTable({ races }: { races: Race[] }) {
           </Table>
         </div>
       </div>
+
+      {editingRace && (
+        <EditRaceDialog 
+          race={editingRace} 
+          open={isEditDialogOpen} 
+          onOpenChange={setIsEditDialogOpen} 
+        />
+      )}
     </div>
   )
 }
