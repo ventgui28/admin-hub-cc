@@ -90,7 +90,7 @@ export function AddRaceDialog() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="tipo" className="font-black text-[10px] uppercase tracking-[0.2em] text-primary/60 ml-1">Tipo de Prova</Label>
-                <Select value={tipo} onValueChange={setTipo}>
+                <Select value={tipo} onValueChange={(val) => setTipo(val ?? "")}>
                   <SelectTrigger className="h-14 bg-white/40 dark:bg-black/20 border-white/20 dark:border-white/10 rounded-2xl focus-visible:ring-primary shadow-inner font-bold px-6">
                     <SelectValue placeholder="Tipo" />
                   </SelectTrigger>
