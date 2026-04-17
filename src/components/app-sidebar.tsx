@@ -46,7 +46,7 @@ const data = {
       icon: Calendar,
     },
     {
-      title: "Fotos e Logos",
+      title: "Galeria",
       url: "/vault",
       icon: Camera,
     },

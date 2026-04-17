@@ -23,7 +23,7 @@ export default function DashboardLayout({
       case "/athletes": return "Gestão de Atletas"
       case "/races": return "Calendário de Provas"
       case "/sponsors": return "Parceiros & Patrocínios"
-      case "/vault": return "Vault de Conteúdo"
+      case "/vault": return "Galeria"
       case "/texts": return "Biblioteca de Textos"
       case "/prompts": return "Laboratório de IA"
       default: return "Admin Hub"
@@ -71,7 +71,7 @@ export default function DashboardLayout({
         <footer className="p-12 text-center relative z-10">
           <div className="h-px w-24 bg-gradient-to-r from-transparent via-foreground/10 to-transparent mx-auto mb-8" />
           <p className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground/40">
-            © {new Date().getFullYear()} Cantanhede Cycling Admin Hub • Ultra Premium Edition
+            © {new Date().getFullYear()} Cantanhede Cycling Galeria • Ultra Premium Edition
           </p>
         </footer>
       </SidebarInset>

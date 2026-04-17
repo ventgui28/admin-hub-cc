@@ -93,7 +93,7 @@ export function VaultHeader() {
     <div className="flex items-center justify-between animate-reveal">
       <div className="flex flex-col gap-3">
         <div className="h-1 w-12 bg-primary rounded-full mb-2" />
-        <h1 className="text-5xl font-black tracking-tighter text-foreground uppercase italic leading-none text-gradient">The Vault</h1>
+        <h1 className="text-5xl font-black tracking-tighter text-foreground uppercase italic leading-none text-gradient">Galeria</h1>
         <p className="text-muted-foreground text-lg font-medium max-w-xl">
           Repositório central de fotos e logótipos da equipa Cantanhede Cycling.
         </p>
@@ -109,7 +109,7 @@ export function VaultHeader() {
         <DialogContent className="sm:max-w-[550px] hyper-glass border-white/20 p-8 rounded-[2rem]">
           <form onSubmit={handleUpload} className="space-y-8">
             <DialogHeader className="space-y-3">
-              <DialogTitle className="text-3xl font-black uppercase italic tracking-tighter text-gradient">Upload para o Vault</DialogTitle>
+              <DialogTitle className="text-3xl font-black uppercase italic tracking-tighter text-gradient">Upload para a Galeria</DialogTitle>
               <DialogDescription className="text-muted-foreground font-medium uppercase tracking-widest text-[10px]">
                 Organiza o teu conteúdo selecionando o destino apropriado.
               </DialogDescription>

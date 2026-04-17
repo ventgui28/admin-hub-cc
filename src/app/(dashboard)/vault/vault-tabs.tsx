@@ -55,7 +55,9 @@ export function VaultTabs({ photos, logos }: VaultTabsProps) {
   }
 
   const getPublicUrl = (bucket: string, fileName: string) => {
-    return supabase.storage.from(bucket).getPublicUrl(fileName).data.publicUrl
+    const { data } = supabase.storage.from(bucket).getPublicUrl(fileName)
+    // Adicionar um timestamp para evitar problemas de cache agressiva do browser
+    return `${data.publicUrl}?t=${new Date().getTime()}`
   }
 
   const FileGrid = ({ files, bucket }: { files: FileObject[], bucket: string }) => {
@@ -65,7 +67,7 @@ export function VaultTabs({ photos, logos }: VaultTabsProps) {
       return (
         <div className="flex flex-col items-center justify-center py-32 border-2 border-dashed rounded-[2.5rem] bg-muted/20 animate-reveal">
           <Archive className="h-16 w-16 text-primary/10 mb-6" />
-          <p className="text-muted-foreground font-black uppercase tracking-[0.2em] text-xs italic">Nenhum ficheiro encontrado neste bucket.</p>
+          <p className="text-muted-foreground font-black uppercase tracking-[0.2em] text-xs italic">Nenhum ficheiro encontrado nesta galeria.</p>
         </div>
       )
     }
@@ -85,6 +87,7 @@ export function VaultTabs({ photos, logos }: VaultTabsProps) {
                     alt={file.name}
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-125"
                     loading="lazy"
+                    crossOrigin="anonymous"
                   />
                 ) : (
                   <div className="flex flex-col items-center gap-4 p-8 text-center">
