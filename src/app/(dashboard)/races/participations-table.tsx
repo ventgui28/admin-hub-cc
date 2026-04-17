@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Trash2, Save, User, Award, Check } from "lucide-react"
-import { removeParticipation, updateResult } from "../actions"
+import { removeParticipation, updateResult } from "./actions"
 import { toast } from "sonner"
 
 interface Participation {
