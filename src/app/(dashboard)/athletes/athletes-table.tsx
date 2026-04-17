@@ -27,6 +27,7 @@ import { deleteAthlete } from "./actions"
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -242,14 +243,16 @@ export function AthletesTable({ athletes }: { athletes: Athlete[] }) {
                           </Button>
                         } />
                         <DropdownMenuContent align="end" className="w-64 p-3 hyper-glass border-primary/10 rounded-2xl animate-reveal">
-                          <DropdownMenuLabel className="text-[10px] uppercase text-primary/60 font-black tracking-[0.3em] px-4 py-4">Opções de Gestão</DropdownMenuLabel>
-                          <DropdownMenuSeparator className="bg-primary/10 mx-2 mb-2" />
-                          <DropdownMenuItem className="cursor-pointer font-black text-xs uppercase tracking-[0.2em] rounded-xl py-4 px-5 focus:bg-primary/10 focus:text-primary transition-all duration-300" onClick={() => handleEdit(athlete)}>
-                            Editar Perfil
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10 font-black text-xs uppercase tracking-[0.2em] rounded-xl py-4 px-5 transition-all duration-300" onClick={() => handleDelete(athlete.id)}>
-                            Eliminar Registo
-                          </DropdownMenuItem>
+                          <DropdownMenuGroup>
+                            <DropdownMenuLabel className="text-[10px] uppercase text-primary/60 font-black tracking-[0.3em] px-4 py-4">Opções de Gestão</DropdownMenuLabel>
+                            <DropdownMenuSeparator className="bg-primary/10 mx-2 mb-2" />
+                            <DropdownMenuItem className="cursor-pointer font-black text-xs uppercase tracking-[0.2em] rounded-xl py-4 px-5 focus:bg-primary/10 focus:text-primary transition-all duration-300" onClick={() => handleEdit(athlete)}>
+                              Editar Perfil
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10 font-black text-xs uppercase tracking-[0.2em] rounded-xl py-4 px-5 transition-all duration-300" onClick={() => handleDelete(athlete.id)}>
+                              Eliminar Registo
+                            </DropdownMenuItem>
+                          </DropdownMenuGroup>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </TableCell>
