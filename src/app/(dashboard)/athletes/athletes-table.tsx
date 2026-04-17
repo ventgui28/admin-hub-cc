@@ -106,7 +106,7 @@ export function AthletesTable({ athletes }: { athletes: Athlete[] }) {
         <div className="flex items-center gap-4 w-full md:w-auto">
           <div className="flex items-center gap-2 px-6 h-16 bg-white/40 dark:bg-black/20 border border-white/20 dark:border-white/10 rounded-2xl shadow-inner group">
             <Filter className="h-5 w-5 text-primary/60 group-hover:text-primary transition-colors" />
-            <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+            <Select value={categoryFilter} onValueChange={(val) => setCategoryFilter(val ?? "all")}>
               <SelectTrigger className="border-none bg-transparent focus:ring-0 h-full font-black text-xs uppercase tracking-[0.2em] min-w-[180px]">
                 <SelectValue placeholder="Categoria" />
               </SelectTrigger>
