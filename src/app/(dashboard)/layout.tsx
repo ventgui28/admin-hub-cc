@@ -4,6 +4,7 @@ import { AppSidebar } from "@/components/app-sidebar"
 import {
   SidebarInset,
   SidebarProvider,
+  SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { usePathname } from "next/navigation"
 import { ThemeSwitcher } from "@/components/theme-switcher"
@@ -37,19 +38,22 @@ export default function DashboardLayout({
         <div className="absolute top-[-10%] left-[-5%] w-[60%] h-[40%] bg-primary/10 rounded-[100%] blur-[120px] pointer-events-none animate-pulse duration-[15s]" />
         <div className="absolute bottom-[-10%] right-[-5%] w-[60%] h-[40%] bg-primary/5 rounded-[100%] blur-[120px] pointer-events-none animate-pulse duration-[12s]" />
         
-        <header className="flex h-24 shrink-0 items-center gap-4 px-10 sticky top-0 z-40 hyper-glass border-b-0 shadow-none">
-          <div className="flex items-center gap-8 w-full max-w-7xl mx-auto">
-            <div className="flex flex-col gap-1.5 animate-reveal">
-              <span className="font-black text-[10px] uppercase tracking-[0.4em] text-primary/70 leading-none">
+        <header className="flex h-20 md:h-24 shrink-0 items-center gap-4 px-4 md:px-10 sticky top-0 z-40 hyper-glass border-b-0 shadow-none">
+          <div className="flex items-center gap-4 md:gap-8 w-full max-w-7xl mx-auto">
+            {/* Mobile Trigger */}
+            <SidebarTrigger className="lg:hidden h-10 w-10 rounded-xl bg-primary/10 text-primary border border-primary/20 shadow-sm" />
+            
+            <div className="flex flex-col gap-1 animate-reveal">
+              <span className="font-black text-[8px] md:text-[10px] uppercase tracking-[0.4em] text-primary/70 leading-none">
                 Cantanhede Cycling
               </span>
-              <div className="font-black text-3xl text-foreground uppercase tracking-tighter italic leading-none text-gradient">
+              <div className="font-black text-xl md:text-3xl text-foreground uppercase tracking-tighter italic leading-none text-gradient">
                 {getPageTitle()}
               </div>
             </div>
             
-            <div className="ml-auto flex items-center gap-6">
-              <div className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-foreground/5 border border-foreground/5 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+            <div className="ml-auto flex items-center gap-3 md:gap-6">
+              <div className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-full bg-foreground/5 border border-foreground/5 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                 <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
                 Sincronizado
               </div>
@@ -58,7 +62,7 @@ export default function DashboardLayout({
           </div>
         </header>
 
-        <main className="flex-1 p-10 relative z-10 w-full max-w-7xl mx-auto animate-reveal delay-100">
+        <main className="flex-1 p-4 md:p-10 relative z-10 w-full max-w-7xl mx-auto animate-reveal delay-100">
           <div className="relative z-10">
             {children}
           </div>
