@@ -25,8 +25,8 @@ export default function LoginPage({
   return (
     <div className="flex min-h-screen items-center justify-center p-6 relative overflow-hidden bg-background">
       {/* Background Decor */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/30 rounded-full blur-[160px] pointer-events-none animate-pulse opacity-50" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary/20 rounded-full blur-[160px] pointer-events-none animate-pulse delay-1000 opacity-50" />
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/30 rounded-full blur-[80px] md:blur-[160px] pointer-events-none md:animate-pulse opacity-50 will-change-[transform,opacity]" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary/20 rounded-full blur-[80px] md:blur-[160px] pointer-events-none md:animate-pulse delay-1000 opacity-50 will-change-[transform,opacity]" />
       
       {/* Aura Effect */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,var(--color-primary)_0%,transparent_70%)] opacity-[0.03] pointer-events-none" />

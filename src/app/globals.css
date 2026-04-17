@@ -135,7 +135,7 @@
 
 @layer base {
   * {
-    @apply border-border/40 transition-all duration-300 ease-out;
+    @apply border-border/40;
   }
   body {
     @apply bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary min-h-screen;
@@ -150,17 +150,32 @@
 
 @layer components {
   .hyper-glass {
-    @apply bg-card backdrop-blur-[32px] border border-white/20 dark:border-white/5 
+    @apply bg-card border border-white/20 dark:border-white/5 
            shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]
            ring-1 ring-white/10 dark:ring-white/5;
+    backdrop-filter: blur(8px);
+  }
+  
+  @screen md {
+    .hyper-glass {
+      backdrop-filter: blur(32px);
+    }
   }
   
   .glass-card {
-    @apply bg-card backdrop-blur-2xl border border-white/25 dark:border-white/10 
-           shadow-2xl shadow-black/5 rounded-[2rem] p-8 
-           hover:shadow-primary/10 hover:bg-white/90 dark:hover:bg-white/15 
-           transition-all duration-700 hover:-translate-y-2
+    @apply bg-card border border-white/25 dark:border-white/10 
+           shadow-2xl shadow-black/5 rounded-[2rem] p-6 md:p-8 
+           transition-all duration-500 
            ring-1 ring-inset ring-white/10 dark:ring-white/5;
+    backdrop-filter: blur(12px);
+    will-change: transform, opacity;
+  }
+
+  @screen md {
+    .glass-card {
+      backdrop-filter: blur(24px);
+      @apply hover:shadow-primary/10 hover:bg-white/90 dark:hover:bg-white/15 hover:-translate-y-2;
+    }
   }
   
   .bento-grid {
@@ -185,18 +200,32 @@
 @layer utilities {
   .animate-reveal {
     animation: reveal 0.8s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+    will-change: transform, opacity;
   }
   
   @keyframes reveal {
     from {
       opacity: 0;
-      transform: translateY(20px) scale(0.98);
-      filter: blur(10px);
+      transform: translateY(15px) scale(0.99);
     }
     to {
       opacity: 1;
       transform: translateY(0) scale(1);
-      filter: blur(0);
+    }
+  }
+
+  @media (min-width: 768px) {
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+        filter: blur(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
     }
   }
 

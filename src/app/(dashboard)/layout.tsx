@@ -35,8 +35,8 @@ export default function DashboardLayout({
       <AppSidebar />
       <SidebarInset className="bg-transparent relative flex flex-col min-h-screen overflow-hidden">
         {/* Decorative Aura Background Elements */}
-        <div className="absolute top-[-10%] left-[-5%] w-[60%] h-[40%] bg-primary/10 rounded-[100%] blur-[120px] pointer-events-none animate-pulse duration-[15s]" />
-        <div className="absolute bottom-[-10%] right-[-5%] w-[60%] h-[40%] bg-primary/5 rounded-[100%] blur-[120px] pointer-events-none animate-pulse duration-[12s]" />
+        <div className="absolute top-[-10%] left-[-5%] w-[60%] h-[40%] bg-primary/10 rounded-[100%] blur-[60px] md:blur-[120px] pointer-events-none hidden md:block md:animate-pulse duration-[15s] will-change-[transform,opacity]" />
+        <div className="absolute bottom-[-10%] right-[-5%] w-[60%] h-[40%] bg-primary/5 rounded-[100%] blur-[40px] md:blur-[120px] pointer-events-none md:animate-pulse duration-[12s] will-change-[transform,opacity]" />
         
         <header className="flex h-20 md:h-24 shrink-0 items-center gap-4 px-4 md:px-10 sticky top-0 z-40 hyper-glass border-b-0 shadow-none">
           <div className="flex items-center gap-4 md:gap-8 w-full max-w-7xl mx-auto">
