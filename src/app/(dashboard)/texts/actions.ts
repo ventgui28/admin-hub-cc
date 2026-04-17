@@ -38,3 +38,28 @@ export async function deleteTextBlock(id: string) {
   revalidatePath('/texts')
   return { success: true }
 }
+
+export async function updateTextBlock(id: string, formData: FormData) {
+  const titulo = formData.get('titulo') as string
+  const conteudo = formData.get('conteudo') as string
+  const categoria = formData.get('categoria') as string
+
+  const supabase = await createClient()
+
+  const { error } = await supabase
+    .from('text_blocks')
+    .update({
+      titulo,
+      conteudo,
+      categoria,
+    })
+    .eq('id', id)
+
+  if (error) {
+    console.error('Erro ao atualizar bloco de texto:', error)
+    return { error: 'Falha ao atualizar o texto.' }
+  }
+
+  revalidatePath('/texts')
+  return { success: true }
+}

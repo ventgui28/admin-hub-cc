@@ -1,10 +1,10 @@
-"use client"
-
+import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Copy, Trash2 } from "lucide-react"
+import { Copy, Trash2, Edit2 } from "lucide-react"
 import { toast } from "sonner"
 import { deleteTextBlock } from "./actions"
+import { EditTextDialog } from "./edit-text-dialog"
 
 interface TextBlock {
   id: string
@@ -15,6 +15,9 @@ interface TextBlock {
 }
 
 export function TextsList({ blocks }: { blocks: TextBlock[] }) {
+  const [editingBlock, setEditingBlock] = useState<TextBlock | null>(null)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text)
     toast.success("Texto copiado para o clipboard!", {
@@ -27,6 +30,11 @@ export function TextsList({ blocks }: { blocks: TextBlock[] }) {
     const result = await deleteTextBlock(id)
     if (result.error) toast.error(result.error)
     else toast.success("Texto removido")
+  }
+
+  const handleEdit = (block: TextBlock) => {
+    setEditingBlock(block)
+    setIsEditDialogOpen(true)
   }
 
   if (blocks.length === 0) {
@@ -50,14 +58,24 @@ export function TextsList({ blocks }: { blocks: TextBlock[] }) {
                 {block.titulo}
               </CardTitle>
             </div>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="h-12 w-12 text-muted-foreground/30 hover:text-destructive hover:bg-destructive/10 rounded-2xl transition-all duration-300 active:scale-90"
-              onClick={() => handleDelete(block.id)}
-            >
-              <Trash2 className="h-6 w-6" />
-            </Button>
+            <div className="flex gap-2">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-12 w-12 text-muted-foreground/30 hover:text-primary hover:bg-primary/10 rounded-2xl transition-all duration-300 active:scale-90"
+                onClick={() => handleEdit(block)}
+              >
+                <Edit2 className="h-6 w-6" />
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-12 w-12 text-muted-foreground/30 hover:text-destructive hover:bg-destructive/10 rounded-2xl transition-all duration-300 active:scale-90"
+                onClick={() => handleDelete(block.id)}
+              >
+                <Trash2 className="h-6 w-6" />
+              </Button>
+            </div>
           </CardHeader>
           <CardContent className="p-8 flex flex-col gap-8 flex-1">
             <div className="relative rounded-3xl bg-white/50 dark:bg-black/40 p-8 text-base text-foreground/90 font-medium leading-relaxed border border-white/20 dark:border-white/10 shadow-inner whitespace-pre-wrap min-h-[180px] flex-1 group-hover:bg-white/70 dark:group-hover:bg-black/60 transition-colors duration-700">
@@ -79,6 +97,14 @@ export function TextsList({ blocks }: { blocks: TextBlock[] }) {
           </CardContent>
         </Card>
       ))}
+
+      {editingBlock && (
+        <EditTextDialog 
+          block={editingBlock} 
+          open={isEditDialogOpen} 
+          onOpenChange={setIsEditDialogOpen} 
+        />
+      )}
     </div>
   )
 }

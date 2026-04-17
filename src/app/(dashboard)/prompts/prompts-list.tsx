@@ -1,9 +1,10 @@
-"use client"
-
+import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Copy, Trash2 } from "lucide-react"
+import { Copy, Trash2, Edit2, Bot } from "lucide-react"
 import { toast } from "sonner"
+import { deletePrompt } from "./actions"
+import { EditPromptDialog } from "./edit-prompt-dialog"
 
 interface Prompt {
   id: string
@@ -14,12 +15,26 @@ interface Prompt {
 }
 
 export function PromptsList({ prompts }: { prompts: Prompt[] }) {
+  const [editingPrompt, setEditingPrompt] = useState<Prompt | null>(null)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text)
     toast.success("Prompt copiado para o clipboard!", {
       icon: <Bot className="h-4 w-4" />,
       description: "Pronto para usar no Midjourney ou ChatGPT.",
     })
+  }
+
+  const handleDelete = async (id: string) => {
+    const result = await deletePrompt(id)
+    if (result.error) toast.error(result.error)
+    else toast.success("Prompt removido")
+  }
+
+  const handleEdit = (prompt: Prompt) => {
+    setEditingPrompt(prompt)
+    setIsEditDialogOpen(true)
   }
 
   if (prompts.length === 0) {
@@ -55,13 +70,24 @@ export function PromptsList({ prompts }: { prompts: Prompt[] }) {
                   {prompt.titulo}
                 </CardTitle>
               </div>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="h-10 w-10 text-muted-foreground/30 hover:text-destructive hover:bg-destructive/10 rounded-xl transition-all"
-              >
-                <Trash2 className="h-5 w-5" />
-              </Button>
+              <div className="flex gap-2">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-10 w-10 text-muted-foreground/30 hover:text-primary hover:bg-primary/10 rounded-xl transition-all"
+                  onClick={() => handleEdit(prompt)}
+                >
+                  <Edit2 className="h-5 w-5" />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-10 w-10 text-muted-foreground/30 hover:text-destructive hover:bg-destructive/10 rounded-xl transition-all"
+                  onClick={() => handleDelete(prompt.id)}
+                >
+                  <Trash2 className="h-5 w-5" />
+                </Button>
+              </div>
             </div>
           </CardHeader>
           <CardContent className="p-8 pt-0 flex-1 flex flex-col gap-8 relative z-10">
@@ -82,8 +108,14 @@ export function PromptsList({ prompts }: { prompts: Prompt[] }) {
           </CardContent>
         </Card>
       ))}
+
+      {editingPrompt && (
+        <EditPromptDialog 
+          prompt={editingPrompt} 
+          open={isEditDialogOpen} 
+          onOpenChange={setIsEditDialogOpen} 
+        />
+      )}
     </div>
   )
 }
-
-import { Bot } from "lucide-react"
