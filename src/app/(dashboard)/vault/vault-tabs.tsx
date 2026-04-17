@@ -202,17 +202,33 @@ export function VaultTabs({ photos, logos }: VaultTabsProps) {
 
   return (
     <Tabs defaultValue="photos" className="w-full">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-8 mb-16 animate-reveal delay-100">
-        <TabsList className="grid w-full grid-cols-2 max-w-[550px] h-20 p-2.5 hyper-glass rounded-[2rem] ring-0 gap-2">
-          <TabsTrigger value="photos" className="rounded-[1.4rem] px-8 font-black uppercase italic tracking-widest text-[11px] data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-2xl shadow-primary/30 transition-all duration-500">
-            <ImageIcon className="h-4.5 w-4.5 mr-3" />
-            Fotos da Equipa
-          </TabsTrigger>
-          <TabsTrigger value="logos" className="rounded-[1.4rem] px-8 font-black uppercase italic tracking-widest text-[11px] data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-2xl shadow-primary/30 transition-all duration-500">
-            <FileIcon className="h-4.5 w-4.5 mr-3" />
-            Logótipos Oficiais
-          </TabsTrigger>
-        </TabsList>
+      <div className="flex flex-col items-center justify-center mb-20 animate-reveal delay-100">
+        <div className="p-1.5 bg-foreground/5 dark:bg-white/5 backdrop-blur-2xl rounded-[2.5rem] border border-foreground/10 dark:border-white/10 shadow-2xl">
+          <TabsList className="grid w-full grid-cols-2 max-w-[600px] h-20 p-0 bg-transparent ring-0 gap-2">
+            <TabsTrigger 
+              value="photos" 
+              className="rounded-[2.2rem] px-10 h-full font-black uppercase italic tracking-[0.2em] text-[10px] md:text-[11px] transition-all duration-700 data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-[0_10px_30px_-5px_rgba(var(--color-primary),0.4)] hover:bg-foreground/5 dark:hover:bg-white/5"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary/10 group-data-[state=active]:bg-white/20">
+                  <ImageIcon className="h-4 w-4" />
+                </div>
+                Fotos da Equipa
+              </div>
+            </TabsTrigger>
+            <TabsTrigger 
+              value="logos" 
+              className="rounded-[2.2rem] px-10 h-full font-black uppercase italic tracking-[0.2em] text-[10px] md:text-[11px] transition-all duration-700 data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-[0_10px_30px_-5px_rgba(var(--color-primary),0.4)] hover:bg-foreground/5 dark:hover:bg-white/5"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary/10 group-data-[state=active]:bg-white/20">
+                  <FileIcon className="h-4 w-4" />
+                </div>
+                Logótipos Oficiais
+              </div>
+            </TabsTrigger>
+          </TabsList>
+        </div>
       </div>
       <TabsContent value="photos" className="mt-0 focus-visible:outline-none focus-visible:ring-0">
         <FileGrid files={photos} bucket="photos" />
