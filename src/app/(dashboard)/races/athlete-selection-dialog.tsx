@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Search, UserPlus, Check, Users } from "lucide-react"
-import { addParticipation } from "../actions"
+import { addParticipation } from "./actions"
 import { toast } from "sonner"
 
 interface Athlete {
