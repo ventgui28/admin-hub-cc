@@ -10,8 +10,10 @@ import {
   Users,
   Calendar,
   ArrowRight,
+  LogOut,
 } from "lucide-react"
 
+import { Button } from "@/components/ui/button"
 import {
   Sidebar,
   SidebarContent,
@@ -29,6 +31,7 @@ import {
 } from "@/components/ui/sidebar"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { logout } from "@/app/login/actions"
 
 const data = {
   navMain: [
@@ -150,13 +153,35 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className={`p-4 border-t border-sidebar-border bg-sidebar/40 backdrop-blur-xl ${isCollapsed ? 'px-0 flex justify-center' : 'flex items-center justify-between'}`}>
+      <SidebarFooter className={`p-4 border-t border-sidebar-border bg-sidebar/40 backdrop-blur-xl flex flex-col gap-4 ${isCollapsed ? 'items-center px-0' : 'items-center'}`}>
         {!isCollapsed && (
-          <div className="flex flex-col gap-1">
-            <span className="text-[10px] font-black uppercase tracking-widest text-foreground/40">Toggle View</span>
+          <div className="flex flex-col gap-1 w-full px-2">
+            <span className="text-[10px] font-black uppercase tracking-widest text-foreground/40">Sessão</span>
+            <Button 
+              variant="ghost" 
+              onClick={() => logout()}
+              className="mt-2 h-12 w-full flex items-center gap-4 px-5 rounded-2xl border border-primary/10 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/20 transition-all duration-300 group"
+            >
+              <LogOut className="h-5 w-5 text-primary/60 group-hover:text-destructive transition-colors" />
+              <span className="text-sm font-bold tracking-tight">Sair da Conta</span>
+            </Button>
           </div>
         )}
-        <SidebarTrigger className={`transition-all duration-300 ${isCollapsed ? 'h-10 w-10 rounded-2xl' : 'h-10 px-4 rounded-xl border border-sidebar-border hover:bg-primary hover:text-white shadow-sm'}`} />
+        {isCollapsed && (
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={() => logout()}
+            className="h-10 w-10 rounded-2xl hover:bg-destructive/10 hover:text-destructive transition-all duration-300 group"
+            title="Sair"
+          >
+            <LogOut className="h-5 w-5 text-primary/60 group-hover:text-destructive transition-colors" />
+          </Button>
+        )}
+        <div className={`flex items-center w-full px-2 ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
+          {!isCollapsed && <span className="text-[10px] font-black uppercase tracking-widest text-foreground/40">Toggle Sidebar</span>}
+          <SidebarTrigger className={`transition-all duration-300 ${isCollapsed ? 'h-10 w-10 rounded-2xl' : 'h-10 px-4 rounded-xl border border-sidebar-border hover:bg-primary hover:text-white shadow-sm'}`} />
+        </div>
       </SidebarFooter>
       
       <SidebarRail />
