@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, use } from 'react'
 import { login } from './actions'
 import { Button } from "@/components/ui/button"
 import {
@@ -17,8 +17,9 @@ import { Bike, Eye, EyeOff } from "lucide-react"
 export default function LoginPage({
   searchParams,
 }: {
-  searchParams: { error?: string }
+  searchParams: Promise<{ error?: string }>
 }) {
+  const params = use(searchParams)
   const [showPassword, setShowPassword] = useState(false)
 
   return (
@@ -93,7 +94,7 @@ export default function LoginPage({
                 </div>
               </div>
               
-              {searchParams.error && (
+              {params.error && (
                 <div className="bg-destructive/10 border border-destructive/20 text-destructive text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] p-4 md:p-5 rounded-xl md:rounded-2xl text-center animate-reveal">
                   Credenciais de acesso inválidas.
                 </div>
@@ -113,10 +114,6 @@ export default function LoginPage({
           <div className="h-1 w-12 md:h-1.5 md:w-16 bg-primary/10 rounded-full" />
         </div>
       </div>
-
-
-      {/* Noise Overlay */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
     </div>
   )
 }
