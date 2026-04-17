@@ -94,14 +94,21 @@ export function VaultTabs({ photos, logos }: VaultTabsProps) {
                       loading="lazy"
                       crossOrigin="anonymous"
                       onError={(e) => {
-                        // Se falhar, substitui por um ícone de erro
                         const target = e.target as HTMLImageElement
                         target.style.display = 'none'
                         const parent = target.parentElement
                         if (parent) {
                           const errorPlaceholder = document.createElement('div')
-                          errorPlaceholder.className = "flex flex-col items-center gap-2 p-4 text-center opacity-40"
-                          errorPlaceholder.innerHTML = '<svg class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7M16 5l5 5M21 5l-5 5"/></svg><span class="text-[9px] font-bold uppercase">Erro ao carregar</span>'
+                          errorPlaceholder.className = "absolute inset-0 flex flex-col items-center justify-center gap-3 p-4 text-center bg-muted/20"
+                          errorPlaceholder.innerHTML = `
+                            <div class="opacity-20 flex flex-col items-center gap-2">
+                              <svg class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7" stroke-linecap="round"/>
+                                <path d="M16 5l5 5M21 5l-5 5" stroke-linecap="round"/>
+                              </svg>
+                              <span class="text-[10px] font-black uppercase tracking-[0.2em]">Ficheiro Indisponível</span>
+                            </div>
+                          `
                           parent.appendChild(errorPlaceholder)
                         }
                       }}
