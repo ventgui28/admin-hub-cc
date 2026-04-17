@@ -52,12 +52,12 @@ export function ParticipationsTable({ raceId, participations }: ParticipationsTa
 
   return (
     <div className="glass-card p-0 overflow-hidden border-none shadow-2xl animate-in delay-100">
-      <Table>
-        <TableHeader className="bg-primary/[0.03] dark:bg-white/[0.02]">
-          <TableRow className="hover:bg-transparent border-white/20 dark:border-white/5">
-            <TableHead className="w-[300px] font-black text-primary/70 uppercase tracking-[0.2em] text-[10px] px-8 py-5">Atleta</TableHead>
-            <TableHead className="font-black text-primary/70 uppercase tracking-[0.2em] text-[10px] px-8">Classificação / Resultado</TableHead>
-            <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.2em] text-[10px] px-8">Ações</TableHead>
+      <Table className="border-separate border-spacing-y-4">
+        <TableHeader className="bg-transparent">
+          <TableRow className="hover:bg-transparent border-none">
+            <TableHead className="w-[300px] font-black text-primary/70 uppercase tracking-[0.2em] text-[10px] px-8 py-2">Atleta</TableHead>
+            <TableHead className="font-black text-primary/70 uppercase tracking-[0.2em] text-[10px] px-8 py-2">Classificação / Resultado</TableHead>
+            <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.2em] text-[10px] px-8 py-2">Ações</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -69,14 +69,14 @@ export function ParticipationsTable({ raceId, participations }: ParticipationsTa
             </TableRow>
           ) : (
             participations.map((part) => (
-              <TableRow key={part.id} className="group hover:bg-primary/[0.02] dark:hover:bg-white/[0.01] transition-all border-white/10 dark:border-white/5">
-                <TableCell className="px-8 py-5">
+              <TableRow key={part.id} className="group glass-card hover:bg-primary/[0.05] dark:hover:bg-white/[0.05] transition-all duration-500 border-none shadow-sm hover:shadow-xl">
+                <TableCell className="px-8 py-6 first:rounded-l-[2rem]">
                   <div className="flex items-center gap-4">
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary border border-primary/20 shrink-0">
                       <User className="h-6 w-6" />
                     </div>
                     <div className="flex flex-col">
-                      <span className="font-black text-lg text-foreground leading-none tracking-tight">
+                      <span className="font-black text-lg text-foreground leading-none tracking-tight group-hover:text-primary transition-colors">
                         {part.athletes.nome}
                       </span>
                       <span className="text-[10px] text-primary/60 font-black uppercase tracking-[0.15em] mt-1.5">
@@ -85,7 +85,7 @@ export function ParticipationsTable({ raceId, participations }: ParticipationsTa
                     </div>
                   </div>
                 </TableCell>
-                <TableCell className="px-8">
+                <TableCell className="px-8 py-6">
                   {editingId === part.id ? (
                     <div className="flex items-center gap-2 animate-in fade-in zoom-in duration-200">
                       <Input 
@@ -114,7 +114,7 @@ export function ParticipationsTable({ raceId, participations }: ParticipationsTa
                     </div>
                   )}
                 </TableCell>
-                <TableCell className="text-right px-8">
+                <TableCell className="text-right px-8 py-6 last:rounded-r-[2rem]">
                   <Button 
                     variant="ghost" 
                     size="icon" 

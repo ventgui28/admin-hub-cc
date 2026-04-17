@@ -122,14 +122,14 @@ export function RacesTable({ races }: { races: Race[] }) {
       </div>
 
       <div className="glass-card p-0 overflow-hidden border-none shadow-2xl animate-reveal delay-200">
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader className="bg-primary/[0.03] dark:bg-white/[0.02] border-b border-white/10">
+        <div className="overflow-x-auto pb-4">
+          <Table className="border-separate border-spacing-y-4">
+            <TableHeader className="bg-transparent border-none">
               <TableRow className="hover:bg-transparent border-none">
-                <TableHead className="w-full md:w-[400px] font-black text-primary/70 uppercase tracking-[0.3em] text-[10px] md:text-[11px] px-6 md:px-10 py-6 md:py-8">Prova / Cronologia</TableHead>
-                <TableHead className="hidden md:table-cell font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Localização</TableHead>
-                <TableHead className="hidden sm:table-cell text-center font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Status</TableHead>
-                <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-6 md:px-10">Ações</TableHead>
+                <TableHead className="w-full md:w-[400px] font-black text-primary/70 uppercase tracking-[0.3em] text-[10px] md:text-[11px] px-6 md:px-10 py-2">Prova / Cronologia</TableHead>
+                <TableHead className="hidden md:table-cell font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10 py-2">Localização</TableHead>
+                <TableHead className="hidden sm:table-cell text-center font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10 py-2">Status</TableHead>
+                <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-6 md:px-10 py-2">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -141,8 +141,8 @@ export function RacesTable({ races }: { races: Race[] }) {
                 </TableRow>
               ) : (
                 filteredRaces.map((race) => (
-                  <TableRow key={race.id} className="group hover:bg-primary/[0.03] dark:hover:bg-white/[0.02] transition-all duration-500 border-white/10 dark:border-white/5">
-                    <TableCell className="px-6 md:px-10 py-6 md:py-8">
+                  <TableRow key={race.id} className="group glass-card hover:bg-primary/[0.05] dark:hover:bg-white/[0.05] transition-all duration-500 border-none shadow-sm hover:shadow-xl hover:-translate-y-1">
+                    <TableCell className="px-6 md:px-10 py-8 md:py-10 first:rounded-l-[2rem]">
                       <div className="flex items-center gap-4 md:gap-6">
                         <div className="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-xl md:rounded-2xl bg-white dark:bg-black/40 text-primary border border-primary/20 shrink-0 shadow-lg md:shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 ring-1 ring-black/5">
                           <Calendar className="h-6 w-6 md:h-8 md:w-8" />
@@ -158,13 +158,13 @@ export function RacesTable({ races }: { races: Race[] }) {
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="hidden md:table-cell px-10">
+                    <TableCell className="hidden md:table-cell px-10 py-8 md:py-10">
                       <div className="flex items-center gap-3 text-foreground/70 font-black uppercase tracking-widest text-xs italic">
                         <MapPin className="h-5 w-5 text-primary/40" />
                         {race.local || "Não definido"}
                       </div>
                     </TableCell>
-                    <TableCell className="hidden sm:table-cell text-center px-10">
+                    <TableCell className="hidden sm:table-cell text-center px-10 py-8 md:py-10">
                       <div className="flex justify-center">
                         <Badge 
                           variant={isFuture(race.data) ? "default" : "outline"} 
@@ -178,7 +178,7 @@ export function RacesTable({ races }: { races: Race[] }) {
                         </Badge>
                       </div>
                     </TableCell>
-                    <TableCell className="text-right px-6 md:px-10">
+                    <TableCell className="text-right px-6 md:px-10 py-8 md:py-10 last:rounded-r-[2rem]">
                       <div className="flex justify-end gap-2 md:gap-3">
                         {race.url_oficial && (
                           <a href={race.url_oficial} target="_blank" rel="noopener noreferrer" className="hidden xs:block">

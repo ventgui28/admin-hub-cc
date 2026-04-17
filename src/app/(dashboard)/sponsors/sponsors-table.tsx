@@ -60,14 +60,14 @@ export function SponsorsTable({ sponsors }: { sponsors: Sponsor[] }) {
   return (
     <div className="space-y-10">
       <div className="glass-card p-0 overflow-hidden border-none shadow-2xl animate-reveal delay-100">
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader className="bg-primary/[0.03] dark:bg-white/[0.02] border-b border-white/10">
+        <div className="overflow-x-auto pb-4">
+          <Table className="border-separate border-spacing-y-4">
+            <TableHeader className="bg-transparent border-none">
               <TableRow className="hover:bg-transparent border-none">
-                <TableHead className="w-full md:w-[400px] font-black text-primary/70 uppercase tracking-[0.3em] text-[10px] md:text-[11px] px-6 md:px-10 py-6 md:py-8">Marca / Identidade</TableHead>
-                <TableHead className="hidden md:table-cell font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Comunicação Oficial</TableHead>
-                <TableHead className="hidden sm:table-cell font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Canais Digitais</TableHead>
-                <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-6 md:px-10">Ações</TableHead>
+                <TableHead className="w-full md:w-[400px] font-black text-primary/70 uppercase tracking-[0.3em] text-[10px] md:text-[11px] px-6 md:px-10 py-2">Marca / Identidade</TableHead>
+                <TableHead className="hidden md:table-cell font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10 py-2">Comunicação Oficial</TableHead>
+                <TableHead className="hidden sm:table-cell font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10 py-2">Canais Digitais</TableHead>
+                <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-6 md:px-10 py-2">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -79,8 +79,8 @@ export function SponsorsTable({ sponsors }: { sponsors: Sponsor[] }) {
                 </TableRow>
               ) : (
                 sponsors.map((sponsor) => (
-                  <TableRow key={sponsor.id} className="group hover:bg-primary/[0.03] dark:hover:bg-white/[0.02] transition-all duration-500 border-white/10 dark:border-white/5">
-                    <TableCell className="px-6 md:px-10 py-6 md:py-8">
+                  <TableRow key={sponsor.id} className="group glass-card hover:bg-primary/[0.05] dark:hover:bg-white/[0.05] transition-all duration-500 border-none shadow-sm hover:shadow-xl hover:-translate-y-1">
+                    <TableCell className="px-6 md:px-10 py-8 md:py-10 first:rounded-l-[2rem]">
                       <div className="flex items-center gap-4 md:gap-6">
                         <div className="flex h-12 w-12 md:h-20 md:w-20 items-center justify-center rounded-xl md:rounded-3xl bg-white dark:bg-white/10 border border-primary/10 overflow-hidden shrink-0 shadow-lg md:shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-700 ring-1 ring-black/5">
                           {sponsor.logo_url ? (
@@ -92,7 +92,7 @@ export function SponsorsTable({ sponsors }: { sponsors: Sponsor[] }) {
                         <span className="font-black text-lg md:text-2xl text-foreground tracking-tighter leading-none italic uppercase text-gradient transition-colors duration-500 group-hover:text-primary">{sponsor.nome}</span>
                       </div>
                     </TableCell>
-                    <TableCell className="hidden md:table-cell px-10">
+                    <TableCell className="hidden md:table-cell px-10 py-8 md:py-10">
                       {sponsor.hashtags_oficiais ? (
                         <div className="flex flex-col gap-3">
                           <Button
@@ -112,7 +112,7 @@ export function SponsorsTable({ sponsors }: { sponsors: Sponsor[] }) {
                         <span className="text-[10px] text-muted-foreground/30 font-black uppercase tracking-[0.3em] italic">Sem hashtags oficiais</span>
                       )}
                     </TableCell>
-                    <TableCell className="hidden sm:table-cell px-10">
+                    <TableCell className="hidden sm:table-cell px-10 py-8 md:py-10">
                       <div className="flex items-center gap-4">
                         {sponsor.instagram && (
                           <Button
@@ -134,7 +134,7 @@ export function SponsorsTable({ sponsors }: { sponsors: Sponsor[] }) {
                         )}
                       </div>
                     </TableCell>
-                    <TableCell className="text-right px-6 md:px-10">
+                    <TableCell className="text-right px-6 md:px-10 py-8 md:py-10 last:rounded-r-[2rem]">
                       <DropdownMenu>
                         <DropdownMenuTrigger render={
                           <Button variant="ghost" size="icon" className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl hover:bg-primary/10 hover:text-primary transition-all duration-500 group/btn">

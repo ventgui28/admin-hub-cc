@@ -151,14 +151,14 @@ export function AthletesTable({ athletes }: { athletes: Athlete[] }) {
       </div>
 
       <div className="glass-card p-0 overflow-hidden border-none shadow-2xl animate-reveal delay-200">
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader className="bg-primary/[0.03] dark:bg-white/[0.02] border-b border-white/10">
+        <div className="overflow-x-auto pb-4">
+          <Table className="border-separate border-spacing-y-4">
+            <TableHeader className="bg-transparent border-none">
               <TableRow className="hover:bg-transparent border-none">
-                <TableHead className="w-full md:w-[400px] font-black text-primary/70 uppercase tracking-[0.3em] text-[10px] md:text-[11px] px-6 md:px-10 py-6 md:py-8">Atleta / Categoria</TableHead>
-                <TableHead className="hidden md:table-cell font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Presença Digital</TableHead>
-                <TableHead className="hidden sm:table-cell text-center font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10">Estado Atual</TableHead>
-                <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-6 md:px-10">Ações</TableHead>
+                <TableHead className="w-full md:w-[400px] font-black text-primary/70 uppercase tracking-[0.3em] text-[10px] md:text-[11px] px-6 md:px-10 py-2">Atleta / Categoria</TableHead>
+                <TableHead className="hidden md:table-cell font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10 py-2">Presença Digital</TableHead>
+                <TableHead className="hidden sm:table-cell text-center font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-10 py-2">Estado Atual</TableHead>
+                <TableHead className="text-right font-black text-primary/70 uppercase tracking-[0.3em] text-[11px] px-6 md:px-10 py-2">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -174,9 +174,9 @@ export function AthletesTable({ athletes }: { athletes: Athlete[] }) {
                 filteredAthletes.map((athlete) => (
                   <TableRow 
                     key={athlete.id} 
-                    className="group hover:bg-primary/[0.03] dark:hover:bg-white/[0.02] transition-all duration-500 border-white/10 dark:border-white/5"
+                    className="group glass-card hover:bg-primary/[0.05] dark:hover:bg-white/[0.05] transition-all duration-500 border-none shadow-sm hover:shadow-xl hover:-translate-y-1"
                   >
-                    <TableCell className="px-6 md:px-10 py-6 md:py-8">
+                    <TableCell className="px-6 md:px-10 py-8 md:py-10 first:rounded-l-[2rem]">
                       <div className="flex items-center gap-4 md:gap-6">
                         <div className="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-xl md:rounded-[1.5rem] bg-white dark:bg-black/40 text-primary border border-primary/20 shrink-0 shadow-lg md:shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 ring-1 ring-black/5">
                           <User className="h-6 w-6 md:h-8 md:w-8" />
@@ -192,7 +192,7 @@ export function AthletesTable({ athletes }: { athletes: Athlete[] }) {
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="hidden md:table-cell px-10">
+                    <TableCell className="hidden md:table-cell px-10 py-8 md:py-10">
                       <div className="flex gap-3">
                         {athlete.instagram && (
                           <Button
@@ -221,7 +221,7 @@ export function AthletesTable({ athletes }: { athletes: Athlete[] }) {
                         )}
                       </div>
                     </TableCell>
-                    <TableCell className="hidden sm:table-cell text-center px-10">
+                    <TableCell className="hidden sm:table-cell text-center px-10 py-8 md:py-10">
                       <div className="flex justify-center">
                         <Badge 
                           variant={athlete.ativo ? "default" : "outline"} 
@@ -235,7 +235,7 @@ export function AthletesTable({ athletes }: { athletes: Athlete[] }) {
                         </Badge>
                       </div>
                     </TableCell>
-                    <TableCell className="text-right px-6 md:px-10">
+                    <TableCell className="text-right px-6 md:px-10 py-8 md:py-10 last:rounded-r-[2rem]">
                       <DropdownMenu>
                         <DropdownMenuTrigger render={
                           <Button variant="ghost" size="icon" className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl hover:bg-primary/10 hover:text-primary transition-all duration-500 group/btn">
